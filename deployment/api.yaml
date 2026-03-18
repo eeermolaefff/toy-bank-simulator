@@ -54,31 +54,3 @@ spec:
       protocol: TCP
   selector:
     app: grid-and-cloud-api
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: grid-and-cloud-ingress-api
-  annotations:
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "https://grid-and-cloud-frontend.project-stambul.ru"
-    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - grid-and-cloud-api.project-stambul.ru
-    secretName: api-tls
-  rules:
-  - host: grid-and-cloud-api.project-stambul.ru
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: grid-and-cloud-api-svc
-            port:
-              number: 8080

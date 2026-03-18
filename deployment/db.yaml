@@ -18,36 +18,34 @@ spec:
     spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - name: grid-and-cloud-database
-        image: fallen2320/grid-and-cloud-second-task-database:latest
-        imagePullPolicy: Always
-        env:
-        - name: TZ
-          value: "UTC"
-        - name: PGTZ
-          value: "Europe/Moscow"
-        - name: POSTGRES_USER
-          value: user
-        - name: POSTGRES_PASSWORD
-          value: password
-        ports:
-          - containerPort: 5432
-        volumeMounts:
-        - mountPath: /var/lib/postgresql/data
-          name: database-localvolume
-        resources:
-          requests:
-            memory: 1000Mi
-          limits:
-            memory: 2000Mi
-            cpu: 500m
-      nodeSelector:
-        kubernetes.io/hostname: ist-k8s-worker-00
+        - name: grid-and-cloud-database
+          image: fallen2320/grid-and-cloud-second-task-database:latest
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: "UTC"
+            - name: PGTZ
+              value: "Europe/Moscow"
+            - name: POSTGRES_USER
+              value: user
+            - name: POSTGRES_PASSWORD
+              value: password
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: database-localvolume
+          resources:
+            requests:
+              memory: 1000Mi
+            limits:
+              memory: 2000Mi
+              cpu: 500m
       volumes:
-      - name: database-localvolume
-        hostPath:
-          path: /var/database-grid-and-cloud-data
-          type: DirectoryOrCreate
+        - name: database-localvolume
+          hostPath:
+            path: /var/database-grid-and-cloud-data
+            type: DirectoryOrCreate
 
 ---
 apiVersion: v1

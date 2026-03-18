@@ -39,36 +39,12 @@ kind: Service
 metadata:
   name: grid-and-cloud-frontend-svc
 spec:
+  type: NodePort
   ports:
     - name: p3000
       port: 3000
       targetPort: 3000
+      nodePort: 32229
       protocol: TCP
   selector:
     app: grid-and-cloud-frontend
-
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: grid-and-cloud-ingress-frontend
-  annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-spec:
-  ingressClassName: nginx
-  tls:
-  - hosts:
-    - grid-and-cloud-frontend.project-stambul.ru
-    secretName: frontend-tls
-  rules:
-  - host: grid-and-cloud-frontend.project-stambul.ru
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: grid-and-cloud-frontend-svc
-            port:
-              number: 3000
-
