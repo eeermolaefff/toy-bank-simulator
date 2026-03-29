@@ -6,7 +6,7 @@ metadata:
 data:
   config.json: |
     {
-      "BACKEND_API": "http://localhost:32227"
+      "BACKEND_API": "http://localhost:8080"
     }
 
 ---
@@ -58,12 +58,11 @@ kind: Service
 metadata:
   name: grid-and-cloud-frontend-svc
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: p3000
       port: 3000
       targetPort: 3000
-      nodePort: 32229
       protocol: TCP
   selector:
     app: grid-and-cloud-frontend

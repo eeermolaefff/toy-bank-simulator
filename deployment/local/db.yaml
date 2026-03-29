@@ -53,12 +53,11 @@ kind: Service
 metadata:
   name: grid-and-cloud-database-svc
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: p5432
       port: 5432
       targetPort: 5432
-      nodePort: 32228
       protocol: TCP
   selector:
     role: grid-and-cloud-database

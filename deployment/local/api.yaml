@@ -45,12 +45,11 @@ kind: Service
 metadata:
   name: grid-and-cloud-api-svc
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: p8080
       port: 8080
       targetPort: 8080
-      nodePort: 32227
       protocol: TCP
   selector:
     app: grid-and-cloud-api
