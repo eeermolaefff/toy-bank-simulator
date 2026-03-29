@@ -10,7 +10,7 @@ RUN mvn clean package
 #
 # Package stage
 #
-FROM eclipse-temurin:17-alpine
+FROM eclipse-temurin:17
 WORKDIR /home/app
 COPY --from=build /home/app/target/api-alpha-jar-with-dependencies.jar ./api.jar
 CMD java -DMOUNTED_DIR=$MOUNTED_DIR -cp api.jar com.grid.and.cloud.api.Application
