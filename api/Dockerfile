@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM maven:3.9.6-eclipse-temurin-17-alpine AS build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /home/app
 COPY pom.xml .
 COPY src ./src
