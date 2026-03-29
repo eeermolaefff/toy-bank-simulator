@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grid-and-cloud-api
+  labels:
+    app: grid-and-cloud-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: grid-and-cloud-api
+      tier: app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: grid-and-cloud-api
+        tier: app
+    spec:
+      containers:
+        - image: toy-bank-api:local
+          imagePullPolicy: Never
+          name: app
+          env:
+            - name: POSTGRES_USER
+              value: user
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: POSTGRES_URL
+              value: jdbc:postgresql://grid-and-cloud-database-svc.default.svc.cluster.local:5432/
+            - name: TZ
+              value: "Europe/Moscow"
+          resources:
+            requests:
+              memory: 1000Mi
+            limits:
+              memory: 1500Mi
+              cpu: 500m
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grid-and-cloud-api-svc
+spec:
+  type: NodePort
+  ports:
+    - name: p8080
+      port: 8080
+      targetPort: 8080
+      nodePort: 32227
+      protocol: TCP
+  selector:
+    app: grid-and-cloud-api

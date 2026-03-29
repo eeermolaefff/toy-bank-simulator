@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grid-and-cloud-frontend
+  labels:
+    app: grid-and-cloud-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grid-and-cloud-frontend
+      tier: app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: grid-and-cloud-frontend
+        tier: app
+    spec:
+      containers:
+        - image: toy-bank-frontend:local
+          imagePullPolicy: Never
+          name: app
+          env:
+            - name: TZ
+              value: "Europe/Moscow"
+          resources:
+            requests:
+              memory: 1000Mi
+            limits:
+              memory: 1500Mi
+              cpu: 500m
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grid-and-cloud-frontend-svc
+spec:
+  type: NodePort
+  ports:
+    - name: p3000
+      port: 3000
+      targetPort: 3000
+      nodePort: 32229
+      protocol: TCP
+  selector:
+    app: grid-and-cloud-frontend
