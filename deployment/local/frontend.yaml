@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  config.json: |
+    {
+      "BACKEND_API": "http://localhost:32227"
+    }
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,18 +31,26 @@ spec:
         tier: app
     spec:
       containers:
-        - image: toy-bank-frontend:local
-          imagePullPolicy: Never
+        - image: fallen2320/grid-and-cloud-second-task-frontend:latest
+          imagePullPolicy: Always
           name: app
           env:
             - name: TZ
               value: "Europe/Moscow"
+          volumeMounts:
+            - name: frontend-config-volume
+              mountPath: /home/app/src/config.json
+              subPath: config.json
           resources:
             requests:
               memory: 1000Mi
             limits:
               memory: 1500Mi
               cpu: 500m
+      volumes:
+        - name: frontend-config-volume
+          configMap:
+            name: frontend-config
 
 ---
 apiVersion: v1

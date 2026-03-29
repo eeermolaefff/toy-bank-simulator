@@ -19,8 +19,8 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: grid-and-cloud-database
-          image: toy-bank-database:local
-          imagePullPolicy: Never
+          image: fallen2320/grid-and-cloud-second-task-database:latest
+          imagePullPolicy: Always
           env:
             - name: TZ
               value: "UTC"

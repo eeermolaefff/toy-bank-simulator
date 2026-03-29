@@ -20,8 +20,8 @@ spec:
         tier: app
     spec:
       containers:
-        - image: toy-bank-api:local
-          imagePullPolicy: Never
+        - image: fallen2320/grid-and-cloud-second-task-api:latest
+          imagePullPolicy: Always
           name: app
           env:
             - name: POSTGRES_USER
