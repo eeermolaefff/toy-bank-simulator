@@ -19,7 +19,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: grid-and-cloud-database
-          image: localhost:5000/toy-bank-database:local
+          image: localhost:5050/toy-bank-database:local
           imagePullPolicy: Always
           env:
             - name: TZ

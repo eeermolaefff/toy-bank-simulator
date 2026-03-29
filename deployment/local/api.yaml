@@ -20,7 +20,7 @@ spec:
         tier: app
     spec:
       containers:
-        - image: localhost:5000/toy-bank-api:local
+        - image: localhost:5050/toy-bank-api:local
           imagePullPolicy: Always
           name: app
           env:

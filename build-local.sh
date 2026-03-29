@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
 
-REGISTRY="localhost:5000"
+REGISTRY="localhost:5050"
 
 echo "=== Starting local Docker registry ==="
 if ! docker ps --format '{{.Names}}' | grep -q '^local-registry$'; then
   docker rm -f local-registry 2>/dev/null || true
-  docker run -d -p 5000:5000 --restart=always --name local-registry registry:2
+  docker run -d -p 5050:5000 --restart=always --name local-registry registry:2
   echo "Registry started at $REGISTRY"
 else
   echo "Registry already running at $REGISTRY"
