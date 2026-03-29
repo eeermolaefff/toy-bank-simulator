@@ -20,8 +20,8 @@ spec:
         tier: app
     spec:
       containers:
-        - image: toy-bank-api:local
-          imagePullPolicy: Never
+        - image: localhost:5000/toy-bank-api:local
+          imagePullPolicy: Always
           name: app
           env:
             - name: POSTGRES_USER

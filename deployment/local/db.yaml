@@ -19,8 +19,8 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: grid-and-cloud-database
-          image: toy-bank-database:local
-          imagePullPolicy: Never
+          image: localhost:5000/toy-bank-database:local
+          imagePullPolicy: Always
           env:
             - name: TZ
               value: "UTC"
